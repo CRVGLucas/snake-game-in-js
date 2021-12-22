@@ -9,6 +9,10 @@ cobra[0] = {
 }
 
 var direction = 'right'
+var food = {
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
 
 function criarBackground() {
     context.fillStyle = 'lightgreen'
@@ -20,6 +24,11 @@ function criarCobra() {
         context.fillStyle = 'green'
         context.fillRect(snake[i].x, snake[i].y, box, box)
     }
+}
+
+function drawFood() {
+    context.fillStyle = 'red'
+    context.fillRect(food.x, food.y, box, box)
 }
 
 document.addEventListener('keydown', update)
@@ -62,6 +71,7 @@ function iniciarJogo() {
 
     criarBackground()
     criarCobra()
+    drawFood()
 
     let cobraX = cobra[0].x
     let cobraY = cobra[0].y
@@ -81,7 +91,14 @@ function iniciarJogo() {
     if( direction == 'down' ) {
         cobraY += box
     }
-    cobra.pop()
+
+    if (cobraX !== food.x || cobraY !== food.y) {
+        cobra.pop()
+    } else {
+        food.x = Math.floor(Math.random() * 15 + 1) * box,
+        food.y = Math.floor(Math.random() * 15 + 1) * box
+    }
+
     
     let novaCabeca = {
         x: cobraX,
@@ -92,5 +109,4 @@ function iniciarJogo() {
 }
 
 let jogo = setInterval(iniciarJogo, 100)
-jogo
 
