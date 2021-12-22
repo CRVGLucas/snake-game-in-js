@@ -20,9 +20,9 @@ function criarBackground() {
 }
 
 function criarCobra() {
-    for( i = 0; i < snake.length; i++ ) {
+    for(var i = 0; i < cobra.length; i++ ) {
         context.fillStyle = 'green'
-        context.fillRect(snake[i].x, snake[i].y, box, box)
+        context.fillRect(cobra[i].x, cobra[i].y, box, box)
     }
 }
 
@@ -52,6 +52,12 @@ function update( event ) {
 }
 
 function iniciarJogo() {
+    for (var i = 1; i < cobra.length; i++) {
+        if ( cobra[0].x == cobra[i].x && cobra[0].y == cobra[i].y) {
+            clearInterval(jogo)
+            alert('Game over :c')
+        }
+    }
     
     if( cobra[0].x > 15 * box && direction == 'right') {
         cobra[0].x = 0
@@ -108,5 +114,5 @@ function iniciarJogo() {
     cobra.unshift(novaCabeca)
 }
 
-let jogo = setInterval(iniciarJogo, 100)
+var jogo = setInterval(iniciarJogo, 100)
 
